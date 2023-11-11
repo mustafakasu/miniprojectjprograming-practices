@@ -65,7 +65,7 @@ int main() {
         printf("6. Add Grades\n");
         printf("7. Display Grades\n");
         printf("8. Exit\n");
-        printf("Enter your number ");
+        printf("Select menu:\n");
         scanf("%d", &choice);
         // perform the user task .
         switch (choice) {
@@ -137,12 +137,30 @@ int main() {
 }
 // Function to add the student details .
 void F_Add_student_details(struct studentinfo *student, int *serial_no) {
-    printf("Enter the data for student %d:\n", (*serial_no) + 1);
+     printf("Enter the data for student %d:\n", (*serial_no) + 1);
     printf("*********************************\n");
+   char c_enrollment_no[g_size];
+     printf("Enter the Enrollment no of student: ");
+    scanf("%s", c_enrollment_no);
+  for (int i = 0; i < *serial_no; i++) {
+     if (F_Search_the_student(student, serial_no, c_enrollment_no) != -1)
+         {}
+         else {
+            printf("Student with enrollment number %s already exists. Cannot add duplicate entries.\n", c_enrollment_no);
+            return;
+         }        
+    }
+
+    do {
+        printf("Enter the phone number (10 digits): ");
+        scanf("%d", &student->i_phone_no);
+
+        if (student->i_phone_no < 1000000000 || student->i_phone_no > 9999999999) {
+            printf("Invalid phone number. Please enter exactly 10 digits.\n");
+        }
+    } while (student->i_phone_no < 1000000000 || student->i_phone_no > 9999999999);
     printf("Enter the year of admission: ");
     scanf("%d", &student->i_year_admission);
-    printf("Enter the Enrollment no of student: ");
-    scanf("%s", student->c_enrollment_no);
     printf("Enter the student name: ");
     scanf("%s", student->c_name);
     printf("Enter the surname: ");
@@ -151,8 +169,6 @@ void F_Add_student_details(struct studentinfo *student, int *serial_no) {
     scanf("%s",student->c_Gender);
     printf("Enter the branch: ");
     scanf("%s", student->c_branch);
-    printf("Enter the phone number: ");
-    scanf("%d",&student->i_phone_no);
     printf("Enter the address:");
     scanf("%s",student->c_address);
     printf("Enter the city :");
